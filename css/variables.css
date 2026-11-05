@@ -1,0 +1,38 @@
+:root {
+  /* colors */
+  --color-background-primary: #0d1321;
+  --color-background-secondary: #1d2d44;
+  --color-background-tertiary: #8d99ae;
+  --color-button: #70b77e;
+  --color-button-hover: #61e294;
+  --color-text-primary: black;
+  --color-text-secondary: azure;
+
+  /* spacing */
+  --spacing-2xs: 0.25rem;
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 0.75rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+
+  /* radius */
+  --radius-2xs: 0.25rem;
+  --radius-xs: 0.5rem;
+  --radius-sm: 0.75rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-xl: 2rem;
+  --radius-2xl: 3rem;
+
+  /* typography */
+  --font-size-2xs: 0.25rem;
+  --font-size-xs: 0.5rem;
+  --font-size-sm: 0.75rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.5rem;
+  --font-size-xl: 2rem;
+  --font-size-2xl: 2.5rem;
+  --font-size-3xl: 3rem;
+}
