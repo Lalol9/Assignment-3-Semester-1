@@ -1,0 +1,15 @@
+footer {
+  background-color: var(--color-background-tertiary);
+  display: flex;
+  justify-content: space-between;
+  padding: var(--spacing-lg);
+}
+
+.footer-text__content {
+  max-width: 300px;
+}
+
+.playback-controls {
+  display: flex;
+  gap: var(--spacing-sm);
+}

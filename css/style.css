@@ -1,0 +1,31 @@
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+main {
+  background-color: var(--color-background-secondary);
+  width: 100vw;
+  min-height: 50px;
+  height: 80vh;
+
+  display: flex;
+}
+
+.main-content {
+  height: 100%;
+  width: 100%;
+}
+
+.main-content__categories {
+  background-color: var(--color-background-tertiary);
+  height: 100px;
+  width: 100%;
+}
+
+.sidebar {
+  width: 200px;
+  height: 100%;
+  background-color: var(--color-background-primary);
+}
