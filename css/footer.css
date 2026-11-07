@@ -2,6 +2,7 @@ footer {
   background-color: var(--color-background-tertiary);
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: var(--spacing-lg);
 }
 
@@ -10,6 +11,22 @@ footer {
 }
 
 .playback-controls {
+  padding-left: var(--spacing-4xl);
   display: flex;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-md);
+}
+
+.playback-controls__icon {
+  height: 100%;
+}
+
+.playback-button {
+  background-color: var(--color-button);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-sm);
+}
+
+.playback-button:hover {
+  background-color: var(--color-button-hover);
+  cursor: pointer;
 }
