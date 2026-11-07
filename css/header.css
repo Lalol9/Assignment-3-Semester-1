@@ -5,7 +5,7 @@ header {
 
   display: flex;
   justify-content: space-between;
-  align-items: end;
+  align-items: center;
 }
 
 h1 {
@@ -16,10 +16,39 @@ h1 {
 a {
   background-color: var(--color-button);
   color: var(--color-text-secondary);
-  padding: var(--spacing-sm);
+  padding: var(--spacing-xs);
   border-radius: var(--radius-2xs);
 }
 
+a:hover {
+  background-color: var(--color-button-hover);
+  cursor: pointer;
+}
+
 .search {
-  align-self: flex-end;
+  /* align-self: flex-end; */
+  display: flex;
+  justify-content: center;
+}
+
+.search__input {
+  height: 36px;
+  border: none;
+  border-top-left-radius: var(--radius-2xs);
+  border-bottom-left-radius: var(--radius-2xs);
+}
+
+.search__button {
+  background-color: var(--color-button);
+  color: var(--color-text-secondary);
+  padding: var(--spacing-xs);
+  border: none;
+  border-top-right-radius: var(--radius-2xs);
+  border-bottom-right-radius: var(--radius-2xs);
+  font-size: var(--font-size-md);
+}
+
+.search__button:hover {
+  background-color: var(--color-button-hover);
+  cursor: pointer;
 }
