@@ -30,3 +30,8 @@ footer {
   background-color: var(--color-button-hover);
   cursor: pointer;
 }
+
+.footer__song-and-artist {
+  text-align: center;
+  line-height: 1.5rem;
+}
