@@ -1,7 +1,9 @@
 header {
   background-color: var(--color-background-primary);
   width: 100%;
-  padding: var(--spacing-2xl);
+  height: 10vh;
+  min-height: 5rem;
+  padding: 0 var(--spacing-2xl);
 
   display: flex;
   justify-content: space-between;

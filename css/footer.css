@@ -1,9 +1,14 @@
 footer {
+  width: 100vw;
   background-color: var(--color-background-tertiary);
+  padding: var(--spacing-lg);
+
+  position: fixed;
+  bottom: 0;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--spacing-lg);
 }
 
 .footer-text__content {
