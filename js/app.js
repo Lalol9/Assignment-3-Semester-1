@@ -77,3 +77,24 @@ playPause.addEventListener("click", () => {
 // ---------------------------------------- Loading array from songs.js
 console.log(songs);
 console.log(songs.length);
+
+//Accessing the elements related to the song list.
+const songList = document.querySelector(".main-content__song-list");
+
+// --------------------------------------- Rendering the songs in the songs list
+
+const songsTest = () => {
+  songs.forEach((song) => {
+    const songCard = document.createElement("div");
+    songCard.className = "song";
+
+    songCard.innerHTML = `${"<div class=song-number>"} ${song.id} ${"</div>"} 
+    ${"<div class=song-title>"} ${song.title} ${"</div>"} 
+    ${"<div class=song-artist>"} ${song.artist} ${"</div>"} 
+    ${"<div class=song-genre>"} ${song.genre} ${"</div>"} 
+    ${"<div class=song-duration>"} ${song.duration} ${"</div>"}`;
+    songList.append(songCard);
+  });
+};
+
+songsTest();
