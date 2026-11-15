@@ -1,5 +1,5 @@
 //Variables for logic
-let currentSong = 1;
+let currentSong = 0;
 let playingOrPaused = 0;
 let shuffleOn = 0;
 let repeatOn = 0;
@@ -82,11 +82,12 @@ console.log(songs.length);
 const songList = document.querySelector(".main-content__song-list");
 
 // --------------------------------------- Rendering the songs in the songs list
-
 const songsTest = () => {
+  let i = 1;
   songs.forEach((song) => {
     const songCard = document.createElement("div");
-    songCard.className = "song";
+    songCard.className = "song" + " " + i;
+    i = i + 1;
 
     songCard.innerHTML = `${"<div class=song-number>"} ${song.id} ${"</div>"} 
     ${"<div class=song-title>"} ${song.title} ${"</div>"} 
@@ -98,3 +99,13 @@ const songsTest = () => {
 };
 
 songsTest();
+
+//-------------------------------------------------- Accessing elements needed to select a song
+
+const spesificSong = document.querySelector(".song");
+
+// ------------------------------------------------- Logic for selecting a song from the song list
+spesificSong.addEventListener("click", () => {
+  currentSong = spesificSong.number;
+  console.log("you clicked a song");
+});
