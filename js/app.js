@@ -12,6 +12,7 @@ const playPause = document.querySelector(".playback-controls__play-pause");
 const arrowRight = document.querySelector(".playback-controls__next-song");
 const imageCounter = document.querySelector(".footer__song-and-artist");
 const playPauseIcon = document.querySelector(".play-pause-icon");
+const songTitleAndArtist = document.querySelector(".footer__song-and-artist");
 
 // ------------------------------------------------- Logic for previous and next buttons
 arrowLeft.addEventListener("click", () => {
@@ -83,29 +84,59 @@ const songList = document.querySelector(".main-content__song-list");
 
 // --------------------------------------- Rendering the songs in the songs list
 const songsTest = () => {
-  let i = 1;
-  songs.forEach((song) => {
-    const songCard = document.createElement("div");
-    songCard.className = "song" + " " + i;
-    i = i + 1;
-
-    songCard.innerHTML = `${"<div class=song-number>"} ${song.id} ${"</div>"} 
-    ${"<div class=song-title>"} ${song.title} ${"</div>"} 
-    ${"<div class=song-artist>"} ${song.artist} ${"</div>"} 
-    ${"<div class=song-genre>"} ${song.genre} ${"</div>"} 
-    ${"<div class=song-duration>"} ${song.duration} ${"</div>"}`;
+  songs.forEach((song, index) => {
+    // Creating elements
+    const songCard = document.createElement("li");
+    const songNumber = document.createElement("p");
+    const songTitle = document.createElement("p");
+    const songArtist = document.createElement("p");
+    const songGenre = document.createElement("p");
+    const songDuration = document.createElement("p");
+    // Adding text to the elements.
+    songNumber.textContent = index + 1;
+    songTitle.textContent = song.title;
+    songArtist.textContent = song.artist;
+    songGenre.textContent = song.genre;
+    songDuration.textContent = song.duration;
+    // Adding class names to elements
+    songCard.classList.add("song");
+    songNumber.classList.add("song-number");
+    songTitle.classList.add("song-title");
+    songArtist.classList.add("song-artist");
+    songGenre.classList.add("song-genre");
+    songDuration.classList.add("song-duration");
+    // Appending the elements
     songList.append(songCard);
+    songCard.append(songNumber, songTitle, songArtist, songGenre, songDuration);
+    // Adding the event listeners
+    songCard.addEventListener("dblclick", () => {
+      songTitleAndArtist.textContent = `${song.title} \n by \n ${song.artist}`;
+    });
   });
 };
+
+// Use p instead of div's
+// Use a loop instead of innerHMTL for creating the categories.
+// Make the song list a ul.
 
 songsTest();
 
 //-------------------------------------------------- Accessing elements needed to select a song
 
-const spesificSong = document.querySelector(".song");
+// const spesificSong = document.querySelector(".song");
 
 // ------------------------------------------------- Logic for selecting a song from the song list
-spesificSong.addEventListener("click", () => {
-  currentSong = spesificSong.number;
-  console.log("you clicked a song");
-});
+// spesificSong.addEventListener("click", () => {
+//   currentSong = spesificSong.number;
+//   console.log("you clicked a song");
+// });
+
+// Questions for reza
+// How can i make the song list clickable?
+// Good way to select songs?
+// How can I make the song list not selectable?
+// Is this a sane way to do things?
+// How can I make the hover effect work on the shuffle and loop buttons?
+//
+//
+//
