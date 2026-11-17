@@ -41,11 +41,14 @@ shuffle.addEventListener("click", () => {
   }
   console.log(shuffleOn);
   if (shuffleOn === 1) {
-    shuffle.style.backgroundColor = "var(--color-button-hover)";
+    shuffle.classList.add("playback-button-active");
   } else {
-    shuffle.style.backgroundColor = "var(--color-button)";
+    shuffle.classList.remove("playback-button-active");
   }
 });
+
+// TODO make an 'active class' to inicate that the buttons are on and off.
+// Dont do styling outside of css!!!! Dummy! ;P
 
 repeat.addEventListener("click", () => {
   repeatOn = repeatOn + 1;
@@ -54,9 +57,9 @@ repeat.addEventListener("click", () => {
   }
   console.log(repeatOn);
   if (repeatOn === 1) {
-    repeat.style.backgroundColor = "var(--color-button-hover)";
+    repeat.classList.add("playback-button-active");
   } else {
-    repeat.style.backgroundColor = "var(--color-button)";
+    repeat.classList.remove("playback-button-active");
   }
 });
 
@@ -79,12 +82,17 @@ playPause.addEventListener("click", () => {
 console.log(songs);
 console.log(songs.length);
 
+// ---------------------------------------- Sorting the songs
+let sortedSongList = JSON.parse(JSON.stringify(songs));
+
+console.log(sortedSongList);
+
 //Accessing the elements related to the song list.
 const songList = document.querySelector(".main-content__song-list");
 
 // --------------------------------------- Rendering the songs in the songs list
 const songsTest = () => {
-  songs.forEach((song, index) => {
+  sortedSongList.forEach((song, index) => {
     // Creating elements
     const songCard = document.createElement("li");
     const songNumber = document.createElement("p");
@@ -110,11 +118,12 @@ const songsTest = () => {
     songCard.append(songNumber, songTitle, songArtist, songGenre, songDuration);
     // Adding the event listeners
     songCard.addEventListener("dblclick", () => {
-      songTitleAndArtist.textContent = `${song.title} \n by \n ${song.artist}`;
+      songTitleAndArtist.textContent = `${song.title} by ${song.artist}`;
     });
   });
 };
 
+// TODO create separate elements for song title and artist.
 // Use p instead of div's
 // Use a loop instead of innerHMTL for creating the categories.
 // Make the song list a ul.

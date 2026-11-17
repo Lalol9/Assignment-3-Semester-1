@@ -35,6 +35,9 @@ footer {
   background-color: var(--color-button-hover);
   cursor: pointer;
 }
+.playback-button-active {
+  background-color: var(--color-button-hover);
+}
 
 .footer__song-and-artist {
   text-align: center;
