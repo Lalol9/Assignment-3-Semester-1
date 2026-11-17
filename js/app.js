@@ -91,7 +91,7 @@ console.log(sortedSongList);
 const songList = document.querySelector(".main-content__song-list");
 
 // --------------------------------------- Rendering the songs in the songs list
-const songsTest = () => {
+const songsRender = () => {
   sortedSongList.forEach((song, index) => {
     // Creating elements
     const songCard = document.createElement("li");
@@ -126,26 +126,48 @@ const songsTest = () => {
 // TODO create separate elements for song title and artist.
 // Use p instead of div's
 // Use a loop instead of innerHMTL for creating the categories.
-// Make the song list a ul.
 
-songsTest();
+songsRender();
 
-//-------------------------------------------------- Accessing elements needed to select a song
+// ------------------------------------------------------------------------------------ Playlists
 
-// const spesificSong = document.querySelector(".song");
+// Accessing playlist elements.
+const sidebar = document.querySelector(".sidebar");
+const userPlaylists = document.querySelector(".sidebar__user-playlists");
+const playlistInput = document.querySelector(".sidebar__add-playlist__input");
+const playlistButton = document.querySelector(".sidebar__add-playlist__img");
+const likedSongs = document.querySelector(".sidebar__liked");
 
-// ------------------------------------------------- Logic for selecting a song from the song list
-// spesificSong.addEventListener("click", () => {
-//   currentSong = spesificSong.number;
-//   console.log("you clicked a song");
-// });
+// Playlist variables
+const playlists = [];
+let playlistIndex = 0;
 
-// Questions for reza
-// How can i make the song list clickable?
-// Good way to select songs?
-// How can I make the song list not selectable?
-// Is this a sane way to do things?
-// How can I make the hover effect work on the shuffle and loop buttons?
-//
-//
-//
+// Rendering playlists in the sidebar
+const renderPlaylist = () => {
+  // if (userPlaylists != "") {
+  //   userPlaylists.innerHTML = "";
+  // }
+  userPlaylists.innerHTML = "";
+  playlists.forEach((playlistName, index) => {
+    const playlist = document.createElement("li");
+    playlist.textContent = playlists[index];
+    playlist.classList.add("playlist-button");
+    userPlaylists.append(playlist);
+    playlist.addEventListener("dblclick", () => {
+      console.log();
+    });
+  });
+};
+
+// Creating new playlists.
+
+playlistButton.addEventListener("click", () => {
+  if (playlistInput.value !== "") {
+    playlists[playlistIndex] = playlistInput.value;
+    playlistIndex = playlistIndex + 1;
+  } else {
+    console.log("Please give the playlist a name!");
+  }
+  console.log(playlists);
+  renderPlaylist();
+});

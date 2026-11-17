@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="./css/reset.css" />
     <link rel="stylesheet" href="./css/variables.css" />
     <link rel="stylesheet" href="./css/header.css" />
+    <link rel="stylesheet" href="./css/sidebar.css" />
     <link rel="stylesheet" href="./css/style.css" />
     <link rel="stylesheet" href="./css/footer.css" />
     <title>Music Thingy</title>
@@ -27,7 +28,15 @@
       </div>
     </header>
     <main>
-      <aside class="sidebar"></aside>
+      <aside class="sidebar">
+        <div class="sidebar__formating-div" ></div>
+        <div class="sidebar__add-playlist playlist-button">
+          <input class="sidebar__add-playlist__input" type="text" placeholder="Add Playlist">
+          <img class="sidebar__add-playlist__img" src="./assets/icons/add.svg" alt="icon for add playlist button">
+        </div>
+        <p class="sidebar__liked playlist-button">Liked Songs</p>
+        <ul class="sidebar__user-playlists"></ul>
+      </aside>
       <div class="main-content">
         <div class="main-content__categories">
           <div class="category category-number">Nr</div>
@@ -38,7 +47,7 @@
         </div>
         <ul class="main-content__song-list">
           </ul>
-          <div class="footer-compensation"></div>
+          <li class="footer-compensation"></li>
         </div>
       </div>
     </main>
