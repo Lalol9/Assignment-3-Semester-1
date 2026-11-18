@@ -47,8 +47,9 @@ shuffle.addEventListener("click", () => {
   }
 });
 
-// TODO make an 'active class' to inicate that the buttons are on and off.
 // Dont do styling outside of css!!!! Dummy! ;P
+
+// Logic for repeat button
 
 repeat.addEventListener("click", () => {
   repeatOn = repeatOn + 1;
@@ -62,6 +63,8 @@ repeat.addEventListener("click", () => {
     repeat.classList.remove("playback-button-active");
   }
 });
+
+// Logic for play/pause button
 
 playPause.addEventListener("click", () => {
   playingOrPaused = playingOrPaused + 1;
@@ -78,44 +81,105 @@ playPause.addEventListener("click", () => {
   }
 });
 
-// ---------------------------------------- Loading array from songs.js
-console.log(songs);
-console.log(songs.length);
+// ------------------------------------ Category buttons
+
+// selecting the buttons
+
+const titleButton = document.querySelector(".category-title");
+const artistButton = document.querySelector(".category-artist");
+const genreButton = document.querySelector(".category-genre");
+const durationButton = document.querySelector(".category-duration");
+
+let selectedCategory = 0;
+
+// event listener
+titleButton.addEventListener("click", () => {
+  selectedCategory = 1;
+  refreshCategory();
+});
+artistButton.addEventListener("click", () => {
+  selectedCategory = 2;
+  refreshCategory();
+});
+genreButton.addEventListener("click", () => {
+  selectedCategory = 3;
+  refreshCategory();
+});
+durationButton.addEventListener("click", () => {
+  selectedCategory = 4;
+  refreshCategory();
+});
+
+// Turning on the selected category
+
+const refreshCategory = () => {
+  switch (selectedCategory) {
+    case 1:
+      titleButton.classList.add("category-selected");
+      artistButton.classList.remove("category-selected");
+      genreButton.classList.remove("category-selected");
+      durationButton.classList.remove("category-selected");
+      break;
+    case 2:
+      titleButton.classList.remove("category-selected");
+      artistButton.classList.add("category-selected");
+      genreButton.classList.remove("category-selected");
+      durationButton.classList.remove("category-selected");
+      break;
+    case 3:
+      titleButton.classList.remove("category-selected");
+      artistButton.classList.remove("category-selected");
+      genreButton.classList.add("category-selected");
+      durationButton.classList.remove("category-selected");
+      break;
+    case 4:
+      titleButton.classList.remove("category-selected");
+      artistButton.classList.remove("category-selected");
+      genreButton.classList.remove("category-selected");
+      durationButton.classList.add("category-selected");
+      break;
+    default:
+      titleButton.classList.remove("category-selected");
+      artistButton.classList.remove("category-selected");
+      genreButton.classList.remove("category-selected");
+      durationButton.classList.remove("category-selected");
+      break;
+  }
+};
 
 // ---------------------------------------- Sorting the songs
-let sortedSongList = JSON.parse(JSON.stringify(songs));
 
-console.log(sortedSongList);
+const applyFilterAndSorting = () => {
+  //filter
+  let filteredItems = [...songs];
+};
 
 //Accessing the elements related to the song list.
 const songList = document.querySelector(".main-content__song-list");
 
 // --------------------------------------- Rendering the songs in the songs list
 const songsRender = () => {
-  sortedSongList.forEach((song, index) => {
+  songs.forEach((song, index) => {
     // Creating elements
     const songCard = document.createElement("li");
-    const songNumber = document.createElement("p");
     const songTitle = document.createElement("p");
     const songArtist = document.createElement("p");
     const songGenre = document.createElement("p");
     const songDuration = document.createElement("p");
     // Adding text to the elements.
-    songNumber.textContent = index + 1;
     songTitle.textContent = song.title;
     songArtist.textContent = song.artist;
     songGenre.textContent = song.genre;
-    songDuration.textContent = song.duration;
+    songDuration.textContent = `${song.duration} sec`;
     // Adding class names to elements
     songCard.classList.add("song");
-    songNumber.classList.add("song-number");
     songTitle.classList.add("song-title");
     songArtist.classList.add("song-artist");
     songGenre.classList.add("song-genre");
     songDuration.classList.add("song-duration");
     // Appending the elements
     songList.append(songCard);
-    songCard.append(songNumber, songTitle, songArtist, songGenre, songDuration);
+    songCard.append(songTitle, songArtist, songGenre, songDuration);
     // Adding the event listeners
     songCard.addEventListener("dblclick", () => {
       songTitleAndArtist.textContent = `${song.title} by ${song.artist}`;

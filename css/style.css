@@ -44,14 +44,22 @@ main {
   flex-grow: 1;
 }
 
-.category-number {
-  width: 10%;
+.category:hover {
+  font-size: 1.1rem;
+  cursor: pointer;
 }
+
+.category-selected {
+  background-color: var(--color-background-primary);
+  box-shadow: 0 0 10px 10px var(--color-background-primary);
+  color: var(--color-text-secondary);
+}
+
 .category-title {
-  width: 30%;
+  width: 35%;
 }
 .category-artist {
-  width: 30%;
+  width: 35%;
 }
 .category-genre {
   width: 20%;
@@ -92,16 +100,12 @@ main {
   flex-grow: 1;
 }
 
-.song-number {
-  width: 10%;
-}
-
 .song-title {
-  width: 30%;
+  width: 35%;
 }
 
 .song-artist {
-  width: 30%;
+  width: 35%;
 }
 
 .song-genre {
