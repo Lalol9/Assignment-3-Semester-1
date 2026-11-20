@@ -81,36 +81,60 @@ playPause.addEventListener("click", () => {
   }
 });
 
-// ------------------------------------ Category buttons
+// ------------------------------------ Categories and search
 
-// selecting the buttons
+// selecting the elements
 
 const titleButton = document.querySelector(".category-title");
 const artistButton = document.querySelector(".category-artist");
 const genreButton = document.querySelector(".category-genre");
 const durationButton = document.querySelector(".category-duration");
+const songList = document.querySelector(".main-content__song-list");
+const searchInput = document.querySelector(".search__input");
+const searchButton = document.querySelector(".search__button");
+
+// Formating searchInput
+// let searchTerm = searchInput.value.trim();
+// searchTerm = searchTerm.toLowerCase();
+
+// Registering click
 
 let selectedCategory = 0;
 
-// event listener
 titleButton.addEventListener("click", () => {
-  selectedCategory = 1;
+  if (selectedCategory == 1) {
+    selectedCategory = 0;
+  } else if (selectedCategory !== 1) {
+    selectedCategory = 1;
+  }
   refreshCategory();
 });
 artistButton.addEventListener("click", () => {
-  selectedCategory = 2;
+  if (selectedCategory == 2) {
+    selectedCategory = 0;
+  } else if (selectedCategory !== 2) {
+    selectedCategory = 2;
+  }
   refreshCategory();
 });
 genreButton.addEventListener("click", () => {
-  selectedCategory = 3;
+  if (selectedCategory == 3) {
+    selectedCategory = 0;
+  } else if (selectedCategory !== 3) {
+    selectedCategory = 3;
+  }
   refreshCategory();
 });
 durationButton.addEventListener("click", () => {
-  selectedCategory = 4;
+  if (selectedCategory == 4) {
+    selectedCategory = 0;
+  } else if (selectedCategory !== 4) {
+    selectedCategory = 4;
+  }
   refreshCategory();
 });
 
-// Turning on the selected category
+// Adding and removing the active class
 
 const refreshCategory = () => {
   switch (selectedCategory) {
@@ -147,51 +171,115 @@ const refreshCategory = () => {
   }
 };
 
-// ---------------------------------------- Sorting the songs
-
-const applyFilterAndSorting = () => {
-  //filter
-  let filteredItems = [...songs];
-};
-
 //Accessing the elements related to the song list.
-const songList = document.querySelector(".main-content__song-list");
 
 // --------------------------------------- Rendering the songs in the songs list
-const songsRender = () => {
-  songs.forEach((song, index) => {
-    // Creating elements
-    const songCard = document.createElement("li");
-    const songTitle = document.createElement("p");
-    const songArtist = document.createElement("p");
-    const songGenre = document.createElement("p");
-    const songDuration = document.createElement("p");
-    // Adding text to the elements.
-    songTitle.textContent = song.title;
-    songArtist.textContent = song.artist;
-    songGenre.textContent = song.genre;
-    songDuration.textContent = `${song.duration} sec`;
-    // Adding class names to elements
-    songCard.classList.add("song");
-    songTitle.classList.add("song-title");
-    songArtist.classList.add("song-artist");
-    songGenre.classList.add("song-genre");
-    songDuration.classList.add("song-duration");
-    // Appending the elements
-    songList.append(songCard);
-    songCard.append(songTitle, songArtist, songGenre, songDuration);
-    // Adding the event listeners
-    songCard.addEventListener("dblclick", () => {
-      songTitleAndArtist.textContent = `${song.title} by ${song.artist}`;
+if (songs) {
+  const renderSongList = (item) => {
+    console.log("Rendering songs");
+    songList.innerHTML = "";
+    item.forEach((song, index) => {
+      // Creating elements
+      const songCard = document.createElement("li");
+      const songTitle = document.createElement("p");
+      const songArtist = document.createElement("p");
+      const songGenre = document.createElement("p");
+      const songDuration = document.createElement("p");
+      // Adding text to the elements.
+      songTitle.textContent = song.title;
+      songArtist.textContent = song.artist;
+      songGenre.textContent = song.genre;
+      songDuration.textContent = `${song.duration} sec`;
+      // Adding class names to elements
+      songCard.classList.add("song");
+      songTitle.classList.add("song-title");
+      songArtist.classList.add("song-artist");
+      songGenre.classList.add("song-genre");
+      songDuration.classList.add("song-duration");
+      // Appending the elements
+      songList.append(songCard);
+      songCard.append(songTitle, songArtist, songGenre, songDuration);
+      // Adding the event listeners
+      songCard.addEventListener("dblclick", () => {
+        songTitleAndArtist.textContent = `${song.title} by ${song.artist}`;
+      });
     });
-  });
-};
+  };
+
+  // ---------------------------------------- Sorting the songs
+
+  const applyFilterAndSorting = () => {
+    console.log("loading filtered songs");
+    //filter
+    // creating a copy of songs
+    let filteredItems = [...songs];
+    //formating the search input value
+    let searchTerm = searchInput.value.trim();
+    searchTerm = searchTerm.toLowerCase();
+    // Is the search input empty?
+    if (searchTerm !== "") {
+      console.log("attempting search");
+      filteredItems = filteredItems.filter(
+        (item, index) =>
+          //Search terms
+          item.title.toLowerCase().search(searchTerm) !== -1 ||
+          item.artist.toLowerCase().search(searchTerm) !== -1,
+      );
+      console.log(filteredItems);
+      console.log("done with search");
+      filteredItems = filteredItems;
+    }
+
+    //Sort
+    switch (selectedCategory) {
+      case 1:
+        filteredItems.sort((a, b) => a.title.localeCompare(b.title));
+        console.log(filteredItems);
+        break;
+      case 2:
+        filteredItems.sort((a, b) => a.artist.localeCompare(b.artist));
+        console.log(filteredItems);
+        break;
+      case 3:
+        filteredItems.sort((a, b) => a.genre.localeCompare(b.genre));
+        console.log(filteredItems);
+        break;
+      case 4:
+        filteredItems.sort((a, b) => b.duration - a.duration);
+        console.log(filteredItems);
+        break;
+      default:
+        console.log("no category selected");
+        filteredItems.sort((a, b) => a.title.localeCompare(b.title));
+        break;
+    }
+    console.log("filtered songs loaded");
+    console.log(filteredItems);
+    return filteredItems;
+  };
+
+  // Updating the song list with the filter/sort applied
+  const updateList = () => {
+    console.log("Attempting to update list");
+    applyFilterAndSorting();
+    const filteredAndSortedSongs = applyFilterAndSorting();
+    renderSongList(filteredAndSortedSongs);
+  };
+
+  titleButton.addEventListener("click", updateList);
+  artistButton.addEventListener("click", updateList);
+  genreButton.addEventListener("click", updateList);
+  durationButton.addEventListener("click", updateList);
+  searchInput.addEventListener("change", updateList);
+  searchButton.addEventListener("click", updateList);
+  updateList();
+}
 
 // TODO create separate elements for song title and artist.
 // Use p instead of div's
 // Use a loop instead of innerHMTL for creating the categories.
 
-songsRender();
+// renderSongList();
 
 // ------------------------------------------------------------------------------------ Playlists
 

@@ -14,6 +14,9 @@
   height: 45px;
 }
 
+.sidebar__all-songs {
+}
+
 .playlist-button {
   background-color: var(--color-background-secondary);
   color: var(--color-text-secondary);
