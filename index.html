@@ -14,18 +14,33 @@
   <body>
     <header>
       <h1>Really cool music player!!!</h1>
-      <nav>
+      <!-- <nav>
         <a href="index.html">Home ;P</a>
-      </nav>
-      <div class="search">
-        <input
-          class="search__input"
-          type="text"
-          name="search-input"
-          id="search-input"
-        />
-        <button class="search__button">Search!</button>
+      </nav> -->
+      <div class="header__filterContainer">
+        <!-- Filter -->
+        <div class="header__filter">
+          <label for="header__filter__select" class="header__filter__label" >Show:</label>
+          <select name="header__filter__select" id="header__filter__select" class="header__filter__select genreFilter">
+            <option value="all">All Genres</option>
+            <option value="Rock">Rock</option>
+            <option value="Metal">Metal</option>
+            <option value="Electronic">Electronic</option>
+            <option value="Pop">Pop</option>
+            <option value="Jazz">Jazz</option>
+          </select>
+        </div>
       </div>
+        <!-- Search -->
+        <div class="search">
+          <input
+            class="search__input"
+            type="text"
+            name="search-input"
+            id="search-input"
+          />
+          <button class="search__button">Search!</button>
+        </div>
     </header>
     <main>
       <aside class="sidebar">
