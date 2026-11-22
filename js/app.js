@@ -250,7 +250,6 @@ if (songs) {
         break;
       default:
         console.log("no category selected");
-        filteredItems.sort((a, b) => a.title.localeCompare(b.title));
         break;
     }
     console.log("filtered songs loaded");
@@ -270,7 +269,7 @@ if (songs) {
   artistButton.addEventListener("click", updateList);
   genreButton.addEventListener("click", updateList);
   durationButton.addEventListener("click", updateList);
-  searchInput.addEventListener("change", updateList);
+  searchInput.addEventListener("keydown", updateList);
   searchButton.addEventListener("click", updateList);
   updateList();
 }
