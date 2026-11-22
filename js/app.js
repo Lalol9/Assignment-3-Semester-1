@@ -172,8 +172,6 @@ const refreshCategory = () => {
   }
 };
 
-//Accessing the elements related to the song list.
-
 // --------------------------------------- Rendering the songs in the songs list
 if (songs) {
   const renderSongList = (item) => {
@@ -235,15 +233,12 @@ if (songs) {
     searchTerm = searchTerm.toLowerCase();
     // Is the search input empty?
     if (searchTerm !== "") {
-      console.log("attempting search");
       filteredItems = filteredItems.filter(
         (item) =>
           //Search terms
           item.title.toLowerCase().search(searchTerm) !== -1 ||
           item.artist.toLowerCase().search(searchTerm) !== -1,
       );
-      console.log(filteredItems);
-      console.log("done with search");
       filteredItems = filteredItems;
     }
 
@@ -251,22 +246,15 @@ if (songs) {
     switch (selectedCategory) {
       case 1:
         filteredItems.sort((a, b) => a.title.localeCompare(b.title));
-        console.log(filteredItems);
         break;
       case 2:
         filteredItems.sort((a, b) => a.artist.localeCompare(b.artist));
-        console.log(filteredItems);
         break;
       case 3:
         filteredItems.sort((a, b) => a.genre.localeCompare(b.genre));
-        console.log(filteredItems);
         break;
       case 4:
         filteredItems.sort((a, b) => b.duration - a.duration);
-        console.log(filteredItems);
-        break;
-      default:
-        console.log("no category selected");
         break;
     }
     return filteredItems;
