@@ -28,11 +28,18 @@
   display: flex;
   align-items: center;
 }
+.sidebar__all-songs:hover {
+  cursor: pointer;
+}
 
 .sidebar__add-playlist {
   width: 100%;
   display: flex;
   align-items: center;
+}
+
+.sidebar__myPlaylist:hover {
+  cursor: pointer;
 }
 
 .sidebar__add-playlist__input {

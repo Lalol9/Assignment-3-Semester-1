@@ -14,6 +14,15 @@ const imageCounter = document.querySelector(".footer__song-and-artist");
 const playPauseIcon = document.querySelector(".play-pause-icon");
 const songTitleAndArtist = document.querySelector(".footer__song-and-artist");
 
+// ----------------------------------------------- Playlist elements.
+const sidebar = document.querySelector(".sidebar");
+const userPlaylists = document.querySelector(".sidebar__user-playlists");
+const playlistInput = document.querySelector(".sidebar__add-playlist__input");
+const playlistButton = document.querySelector(".sidebar__add-playlist__img");
+const renderAllSongs = document.querySelector(".sidebar__all-songs");
+const myPlaylist = document.querySelector(".sidebar__myPlaylist");
+const addToMyPlaylist = document.querySelector(".song-addPlaylist");
+
 // ------------------------------------------------- Logic for previous and next buttons
 arrowLeft.addEventListener("click", () => {
   currentSong = currentSong - 1;
@@ -172,8 +181,22 @@ const refreshCategory = () => {
   }
 };
 
+// variable containing the songs to "My playlist"
+let myPlaylistContent = [];
+console.log(
+  "My playlist contains these songs ",
+  JSON.parse(localStorage.getItem("myPlaylistContent")),
+);
+
+if (JSON.parse(localStorage.getItem("myPlaylistContent")).length !== 0) {
+  myPlaylistContent = JSON.parse(localStorage.getItem("myPlaylistContent"));
+}
+
 // --------------------------------------- Rendering the songs in the songs list
 if (songs) {
+  // Playlist variables
+  let renderMyPlaylist = false;
+  // Start rendering the song list
   const renderSongList = (item) => {
     //Clearing the song list
     songList.innerHTML = "";
@@ -186,26 +209,90 @@ if (songs) {
         const songArtist = document.createElement("p");
         const songGenre = document.createElement("p");
         const songDuration = document.createElement("p");
+        const addToMyPlaylist = document.createElement("img");
         // Adding text to the elements.
         songTitle.textContent = song.title;
         songArtist.textContent = song.artist;
         songGenre.textContent = song.genre;
         songDuration.textContent = `${song.duration} sec`;
+        // Changing the icon for adding or removing songs
+        if (renderMyPlaylist == true) {
+          addToMyPlaylist.setAttribute("src", "./assets/icons/remove.svg");
+        } else {
+          addToMyPlaylist.setAttribute("src", "./assets/icons/add.svg");
+        }
         // Adding class names to elements
         songCard.classList.add("song");
         songTitle.classList.add("song-title");
         songArtist.classList.add("song-artist");
         songGenre.classList.add("song-genre");
         songDuration.classList.add("song-duration");
+        addToMyPlaylist.classList.add("song-addPlaylist");
         // Appending the elements
         songList.append(songCard);
-        songCard.append(songTitle, songArtist, songGenre, songDuration);
+        songCard.append(
+          songTitle,
+          songArtist,
+          songGenre,
+          songDuration,
+          addToMyPlaylist,
+        );
         // Adding the event listeners
         songCard.addEventListener("dblclick", () => {
           songTitleAndArtist.textContent = `${song.title} by ${song.artist}`;
         });
+        //Adding and removing songs from "my playlist"
+        // Are we currently displaying "my playlist"?
+        if (renderMyPlaylist == true) {
+          addToMyPlaylist.addEventListener("click", () => {
+            console.log("removing from playlist");
+            console.log(song.title, "at index nr ", index);
+            // Removing the song from the myPlaylistContent array
+            myPlaylistContent.splice(index, 1);
+            // Saving the myPlaylistContent array locally
+            localStorage.setItem(
+              "myPlaylistContent",
+              JSON.stringify(myPlaylistContent),
+            );
+            console.log(myPlaylistContent);
+            // Re-loading the song list to display "my playlist" without the song.
+            renderSongList(myPlaylistContent);
+          });
+        } else {
+          addToMyPlaylist.addEventListener("click", () => {
+            // Checking if the song is already in "my playlist" array
+            let isInPlaylist = false;
+            const alreadyInPlaylist = myPlaylistContent.forEach(
+              (item, index) => {
+                if (item.id == song.id) {
+                  isInPlaylist = true;
+                }
+              },
+            );
+            if (isInPlaylist) {
+              //display error message in terminal if the song exists.
+              console.log("The song is already in the playlist!!");
+            } else {
+              console.log("added to playlist");
+              // Add song to the myPlaylistContent array
+              myPlaylistContent.push(song);
+              // Save the myPlaylistContent array locally
+              localStorage.setItem(
+                "myPlaylistContent",
+                JSON.stringify(myPlaylistContent),
+              );
+            }
+          });
+        }
       });
+    } else if (renderMyPlaylist == true) {
+      //Display message if the playlist is empty
+      const playlistEmpty = document.createElement("p");
+      playlistEmpty.textContent = "The playlist is empty!";
+      playlistEmpty.classList.add("song");
+      songList.append(playlistEmpty);
     } else {
+      //Display message if no song match search
       const noSongsMatchSearch = document.createElement("p");
       noSongsMatchSearch.textContent = "No Songs Found Matching the Search!";
       noSongsMatchSearch.classList.add("song");
@@ -216,8 +303,13 @@ if (songs) {
   // ---------------------------------------- Sorting the songs
 
   const applyFilterAndSorting = () => {
-    // creating a copy of songs array
+    // creating a copy of the songs array
     let filteredItems = [...songs];
+
+    // Changing the content in filteredItems to a copy of the myPlaylistContent array
+    if (renderMyPlaylist) {
+      filteredItems = [...myPlaylistContent];
+    }
 
     //Filter
     //Sorting out songs that don't match the selected genre
@@ -275,6 +367,19 @@ if (songs) {
   searchInput.addEventListener("keyup", updateList);
   searchButton.addEventListener("click", updateList);
   updateList();
+
+  //------------------------------------------------------------------------------- Playlist stuff
+
+  myPlaylist.addEventListener("click", () => {
+    console.log("attempthing to load my playlist");
+    renderMyPlaylist = true;
+    renderSongList(myPlaylistContent);
+  });
+  renderAllSongs.addEventListener("click", () => {
+    console.log("Displaying all songs");
+    renderMyPlaylist = false;
+    updateList();
+  });
 }
 
 //Updating the song list when a change is detected
@@ -285,15 +390,20 @@ if (songs) {
 // ------------------------------------------------------------------------------------ Playlists
 
 // Accessing playlist elements.
-const sidebar = document.querySelector(".sidebar");
-const userPlaylists = document.querySelector(".sidebar__user-playlists");
-const playlistInput = document.querySelector(".sidebar__add-playlist__input");
-const playlistButton = document.querySelector(".sidebar__add-playlist__img");
-const likedSongs = document.querySelector(".sidebar__liked");
+// const sidebar = document.querySelector(".sidebar");
+// const userPlaylists = document.querySelector(".sidebar__user-playlists");
+// const playlistInput = document.querySelector(".sidebar__add-playlist__input");
+// const playlistButton = document.querySelector(".sidebar__add-playlist__img");
+// const myPlaylist = document.querySelector(".sidebar__myPlaylist");
+// const addToMyPlaylist = document.querySelector(".song-addPlaylist");
 
-// Playlist variables
-const playlists = [];
-let playlistIndex = 0;
+// // Playlist variables
+// const playlists = [];
+// let playlistIndex = 1;
+
+// myPlaylist.addEventListener("click", () => {
+//   console.log("added to playlist");
+// });
 
 // Rendering playlists in the sidebar
 const renderPlaylist = () => {
@@ -307,7 +417,7 @@ const renderPlaylist = () => {
     playlist.classList.add("playlist-button");
     userPlaylists.append(playlist);
     playlist.addEventListener("dblclick", () => {
-      console.log();
+      console.log("you clicked the playlist!");
     });
   });
 };
