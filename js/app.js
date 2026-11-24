@@ -17,6 +17,8 @@ const currentSongSeparator = document.querySelector(
   ".footer__songAndArtist-separator",
 );
 const currentSongArtist = document.querySelector(".footer__songArtist");
+const messagebox = document.querySelector(".footer__messageBox");
+const messageboxText = document.querySelector(".footer__messageBoxText");
 
 // ----------------------------------------------- Playlist elements.
 const sidebar = document.querySelector(".sidebar");
@@ -191,10 +193,6 @@ const refreshCategory = () => {
 
 // variable containing the songs to "My playlist"
 let myPlaylistContent = [];
-console.log(
-  "My playlist contains these songs ",
-  JSON.parse(localStorage.getItem("myPlaylistContent")),
-);
 
 if (JSON.parse(localStorage.getItem("myPlaylistContent")).length !== 0) {
   myPlaylistContent = JSON.parse(localStorage.getItem("myPlaylistContent"));
@@ -210,12 +208,29 @@ const renderPlaylistStats = () => {
     myPlaylistContentDuration = myPlaylistContentDuration + song.duration;
   });
   myPlaylistContentDuration = Math.trunc(myPlaylistContentDuration / 60);
-  console.log(myPlaylistContentDuration);
 
   // Display duration
   myPlaylistDuration.textContent = `Duration: ${myPlaylistContentDuration}min`;
 };
 renderPlaylistStats();
+
+// Rendering the message box
+let lastTimeoutID = 0;
+const renderMessagebox = (text) => {
+  // clear previous timeout
+  clearTimeout(lastTimeoutID);
+  // set messagebox text
+  messageboxText.textContent = text;
+  // reveal messagebox
+  messagebox.classList.remove("messageBox-inactive");
+  // clear messagebox in 3 seconds
+  const hideMessageBox = () => {
+    messagebox.classList.add("messageBox-inactive");
+  };
+  let timeout = setTimeout(hideMessageBox, 3000);
+  // set current timeout id as the last timeout
+  lastTimeoutID = timeout;
+};
 
 // --------------------------------------- Rendering the songs in the songs list
 if (songs) {
@@ -273,6 +288,7 @@ if (songs) {
         if (renderMyPlaylist == true) {
           addToMyPlaylist.addEventListener("click", () => {
             console.log("removing from playlist");
+            renderMessagebox(`Removing ${song.title} from playlist`);
             console.log(song.title, "at index nr ", index);
             // Removing the song from the myPlaylistContent array
             myPlaylistContent.splice(index, 1);
@@ -300,11 +316,12 @@ if (songs) {
             );
             if (isInPlaylist) {
               //display error message in terminal if the song exists.
-              console.log("The song is already in the playlist!!");
+              renderMessagebox("Song already in playlist!");
             } else {
-              console.log("added to playlist");
               // Add song to the myPlaylistContent array
               myPlaylistContent.push(song);
+              // Display messagebox
+              renderMessagebox(`Added ${song.title} to playlist`);
               // Re-Rendering playlist stats
               renderPlaylistStats();
               // Save the myPlaylistContent array locally

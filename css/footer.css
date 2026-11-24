@@ -11,6 +11,33 @@ footer {
   align-items: center;
 }
 
+.footer__messageBox {
+  width: 100vw;
+
+  position: fixed;
+  bottom: 150px;
+  left: 0;
+
+  display: flex;
+  justify-content: center;
+}
+
+.footer__messageBoxText {
+  background-color: var(--color-background-tertiary);
+  color: var(--color-text-primary);
+  width: 40%;
+  min-width: 350px;
+  max-width: 450px;
+  font-size: var(--font-size-md);
+  padding: var(--spacing-xl) var(--spacing-2xl);
+  border-radius: var(--radius-sm);
+  text-align: center;
+}
+
+.messageBox-inactive {
+  bottom: -500px;
+}
+
 .footer-text__content {
   max-width: 300px;
 }
