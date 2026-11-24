@@ -12,13 +12,13 @@ const playPause = document.querySelector(".playback-controls__play-pause");
 const arrowRight = document.querySelector(".playback-controls__next-song");
 const imageCounter = document.querySelector(".footer__song-and-artist");
 const playPauseIcon = document.querySelector(".play-pause-icon");
-const currentSongTitle = document.querySelector(".footer__songTitle");
+const currentSongTitle = document.querySelector(".footer__song-title");
 const currentSongSeparator = document.querySelector(
-  ".footer__songAndArtist-separator",
+  ".footer__song-and-artist-separator",
 );
-const currentSongArtist = document.querySelector(".footer__songArtist");
-const messagebox = document.querySelector(".footer__messageBox");
-const messageboxText = document.querySelector(".footer__messageBoxText");
+const currentSongArtist = document.querySelector(".footer__song-artist");
+const messagebox = document.querySelector(".footer__messagebox");
+const messageboxText = document.querySelector(".footer__messagebox-text");
 
 // ----------------------------------------------- Playlist elements.
 const sidebar = document.querySelector(".sidebar");
@@ -26,11 +26,13 @@ const userPlaylists = document.querySelector(".sidebar__user-playlists");
 const playlistInput = document.querySelector(".sidebar__add-playlist__input");
 const playlistButton = document.querySelector(".sidebar__add-playlist__img");
 const renderAllSongs = document.querySelector(".sidebar__all-songs");
-const myPlaylist = document.querySelector(".sidebar__myPlaylist__button");
+const myPlaylist = document.querySelector(".sidebar__my-playlist__button");
 const addToMyPlaylist = document.querySelector(".song-addPlaylist");
-const myPlaylistLength = document.querySelector(".sidebar__myPlaylist__length");
+const myPlaylistLength = document.querySelector(
+  ".sidebar__my-playlist__length",
+);
 const myPlaylistDuration = document.querySelector(
-  ".sidebar__myPlaylist__duration",
+  ".sidebar__my-playlist__duration",
 );
 
 // ------------------------------------------------- Logic for previous and next buttons
@@ -109,7 +111,7 @@ const artistButton = document.querySelector(".category-artist");
 const genreButton = document.querySelector(".category-genre");
 const durationButton = document.querySelector(".category-duration");
 const songList = document.querySelector(".main-content__song-list");
-const genreFilter = document.querySelector(".genreFilter");
+const genreFilter = document.querySelector(".genre-filter");
 const searchInput = document.querySelector(".search__input");
 const searchButton = document.querySelector(".search__button");
 
@@ -222,10 +224,10 @@ const renderMessagebox = (text) => {
   // set messagebox text
   messageboxText.textContent = text;
   // reveal messagebox
-  messagebox.classList.remove("messageBox-inactive");
+  messagebox.classList.remove("messagebox-inactive");
   // clear messagebox in 3 seconds
   const hideMessageBox = () => {
-    messagebox.classList.add("messageBox-inactive");
+    messagebox.classList.add("messagebox-inactive");
   };
   let timeout = setTimeout(hideMessageBox, 3000);
   // set current timeout id as the last timeout
@@ -287,8 +289,8 @@ if (songs) {
         // Are we currently displaying "my playlist"?
         if (renderMyPlaylist == true) {
           addToMyPlaylist.addEventListener("click", () => {
-            console.log("removing from playlist");
-            renderMessagebox(`Removing ${song.title} from playlist`);
+            //Display confirmation message
+            renderMessagebox(`Removed ${song.title} from playlist`);
             console.log(song.title, "at index nr ", index);
             // Removing the song from the myPlaylistContent array
             myPlaylistContent.splice(index, 1);
