@@ -20,8 +20,12 @@ const userPlaylists = document.querySelector(".sidebar__user-playlists");
 const playlistInput = document.querySelector(".sidebar__add-playlist__input");
 const playlistButton = document.querySelector(".sidebar__add-playlist__img");
 const renderAllSongs = document.querySelector(".sidebar__all-songs");
-const myPlaylist = document.querySelector(".sidebar__myPlaylist");
+const myPlaylist = document.querySelector(".sidebar__myPlaylist__button");
 const addToMyPlaylist = document.querySelector(".song-addPlaylist");
+const myPlaylistLength = document.querySelector(".sidebar__myPlaylist__length");
+const myPlaylistDuration = document.querySelector(
+  ".sidebar__myPlaylist__duration",
+);
 
 // ------------------------------------------------- Logic for previous and next buttons
 arrowLeft.addEventListener("click", () => {
@@ -192,6 +196,23 @@ if (JSON.parse(localStorage.getItem("myPlaylistContent")).length !== 0) {
   myPlaylistContent = JSON.parse(localStorage.getItem("myPlaylistContent"));
 }
 
+// Rendering the stats for "my Playlist" under the my playlist button
+const renderPlaylistStats = () => {
+  // Display length
+  myPlaylistLength.textContent = `Songs: ${myPlaylistContent.length}`;
+  // Calculate duration
+  var myPlaylistContentDuration = 0;
+  myPlaylistContent.forEach((song) => {
+    myPlaylistContentDuration = myPlaylistContentDuration + song.duration;
+  });
+  myPlaylistContentDuration = Math.trunc(myPlaylistContentDuration / 60);
+  console.log(myPlaylistContentDuration);
+
+  // Display duration
+  myPlaylistDuration.textContent = `Duration: ${myPlaylistContentDuration}min`;
+};
+renderPlaylistStats();
+
 // --------------------------------------- Rendering the songs in the songs list
 if (songs) {
   // Playlist variables
@@ -255,8 +276,10 @@ if (songs) {
               JSON.stringify(myPlaylistContent),
             );
             console.log(myPlaylistContent);
-            // Re-loading the song list to display "my playlist" without the song.
+            // Re-Rendering the song list to display "my playlist" without the song.
             renderSongList(myPlaylistContent);
+            // Re-Rendering playlist stats
+            renderPlaylistStats();
           });
         } else {
           addToMyPlaylist.addEventListener("click", () => {
@@ -276,6 +299,8 @@ if (songs) {
               console.log("added to playlist");
               // Add song to the myPlaylistContent array
               myPlaylistContent.push(song);
+              // Re-Rendering playlist stats
+              renderPlaylistStats();
               // Save the myPlaylistContent array locally
               localStorage.setItem(
                 "myPlaylistContent",
@@ -370,11 +395,13 @@ if (songs) {
 
   //------------------------------------------------------------------------------- Playlist stuff
 
+  // Rendering "my Playlist"
   myPlaylist.addEventListener("click", () => {
     console.log("attempthing to load my playlist");
     renderMyPlaylist = true;
     renderSongList(myPlaylistContent);
   });
+  // Rendering all the song from the songs array.
   renderAllSongs.addEventListener("click", () => {
     console.log("Displaying all songs");
     renderMyPlaylist = false;
@@ -394,7 +421,7 @@ if (songs) {
 // const userPlaylists = document.querySelector(".sidebar__user-playlists");
 // const playlistInput = document.querySelector(".sidebar__add-playlist__input");
 // const playlistButton = document.querySelector(".sidebar__add-playlist__img");
-// const myPlaylist = document.querySelector(".sidebar__myPlaylist");
+// const myPlaylist = document.querySelector(".sidebar__myPlaylist__button");
 // const addToMyPlaylist = document.querySelector(".song-addPlaylist");
 
 // // Playlist variables
