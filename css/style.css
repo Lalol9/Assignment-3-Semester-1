@@ -23,6 +23,7 @@ main {
 .main-content {
   height: 100%;
   width: 100%;
+  max-width: 800vw;
 }
 
 .main-content__categories {
@@ -87,6 +88,7 @@ main {
 
   display: flex;
   align-items: center;
+  gap: var(--spacing-xs);
 }
 
 .song:hover {
@@ -124,5 +126,52 @@ main {
   height: var(--font-size-lg);
   width: 5%;
   min-width: 25px;
+  max-width: 40px;
   border-radius: var(--radius-2xl);
+}
+
+/* ------------------------------------------------------ Media Queries */
+
+@media screen and (max-width: 600px) {
+  main {
+    flex-direction: column;
+  }
+  .main-content {
+    max-width: 100%;
+  }
+  .main-content__categories {
+    padding: var(--spacing-md) var(--spacing-sm);
+    height: 1rem;
+    gap: var(--spacing-2xs);
+  }
+  .category {
+    padding: 0 var(--spacing-xs);
+    width: 0;
+    border: 1px solid black;
+  }
+  .category-selected {
+    box-shadow: none;
+  }
+  .song-genre {
+    display: none;
+  }
+  .song {
+    padding: var(--spacing-xs);
+  }
+  .song-addPlaylist {
+    height: 100%;
+    border-radius: var(--radius-xs);
+  }
+  .song-title {
+    border-left: none;
+  }
+}
+
+@media screen and (max-height: 600px) and (orientation: landscape) {
+  .category-selected {
+    box-shadow: none;
+  }
+  .main-content__categories {
+    padding: var(--spacing-md);
+  }
 }

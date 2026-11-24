@@ -89,3 +89,43 @@
   flex-direction: column;
   gap: var(--spacing-xs);
 }
+
+@media screen and (max-width: 600px) {
+  .sidebar {
+    /* display: none; */
+    width: 100%;
+    max-height: 50px;
+    flex-shrink: 1;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 var(--spacing-xs) var(--spacing-2xs);
+  }
+  .playlist-button {
+    height: 35px;
+    min-height: 35px;
+  }
+  .sidebar__my-playlist {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+  }
+  .sidebar__my-playlist__button {
+    border-radius: var(--radius-sm);
+    justify-content: center;
+  }
+  .sidebar__all-songs {
+    justify-content: center;
+  }
+  .sidebar__my-playlist__stats-container,
+  .sidebar__add-playlist,
+  .sidebar__user-playlists,
+  .sidebar__formating-div {
+    display: none;
+  }
+}
+
+@media screen and (max-height: 600px) and (orientation: landscape) {
+  .sidebar {
+    width: 120px;
+  }
+}

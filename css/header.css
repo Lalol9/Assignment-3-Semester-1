@@ -77,3 +77,47 @@ a:hover {
   border-radius: var(--radius-2xs);
   padding: var(--spacing-xs);
 }
+
+/* ------------------------------------------------------ Media Queries */
+
+@media screen and (max-width: 900px) {
+  header {
+    padding: 0 var(--spacing-lg);
+    gap: var(--spacing-xs);
+  }
+  h1 {
+    font-size: var(--font-size-xl);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  header {
+    padding: var(--spacing-2xs);
+    height: 80px;
+    min-height: 100px;
+    /* flex-direction: column; */
+    gap: 0;
+    flex-wrap: wrap;
+  }
+  h1 {
+    text-align: center;
+    width: 100%;
+  }
+  .search {
+    padding: var(--spacing-2xs) var(--spacing-lg) var(--spacing-2xs)
+      var(--spacing-2xs);
+  }
+  .search__input {
+    width: 120px;
+  }
+  .header__filter {
+    padding: var(--spacing-2xs) var(--spacing-2xs) var(--spacing-2xs)
+      var(--spacing-lg);
+  }
+  .header__filter__select {
+    width: 100px;
+  }
+  .header__filter__label {
+    display: none;
+  }
+}
