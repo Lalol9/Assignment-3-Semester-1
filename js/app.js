@@ -12,7 +12,11 @@ const playPause = document.querySelector(".playback-controls__play-pause");
 const arrowRight = document.querySelector(".playback-controls__next-song");
 const imageCounter = document.querySelector(".footer__song-and-artist");
 const playPauseIcon = document.querySelector(".play-pause-icon");
-const songTitleAndArtist = document.querySelector(".footer__song-and-artist");
+const currentSongTitle = document.querySelector(".footer__songTitle");
+const currentSongSeparator = document.querySelector(
+  ".footer__songAndArtist-separator",
+);
+const currentSongArtist = document.querySelector(".footer__songArtist");
 
 // ----------------------------------------------- Playlist elements.
 const sidebar = document.querySelector(".sidebar");
@@ -260,7 +264,9 @@ if (songs) {
         );
         // Adding the event listeners
         songCard.addEventListener("dblclick", () => {
-          songTitleAndArtist.textContent = `${song.title} by ${song.artist}`;
+          currentSongTitle.textContent = song.title;
+          currentSongSeparator.textContent = "By";
+          currentSongArtist.textContent = song.artist;
         });
         //Adding and removing songs from "my playlist"
         // Are we currently displaying "my playlist"?
