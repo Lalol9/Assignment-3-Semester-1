@@ -31,11 +31,8 @@
   align-items: center;
 }
 
-.sidebar__all-songs:hover {
-  cursor: pointer;
-}
-
-.sidebar__my-playlist__button:hover {
+.playlist-button:hover {
+  background-color: var(--color-button);
   cursor: pointer;
 }
 
@@ -92,7 +89,6 @@
 
 @media screen and (max-width: 600px) {
   .sidebar {
-    /* display: none; */
     width: 100%;
     max-height: 50px;
     flex-shrink: 1;

@@ -9,8 +9,6 @@ main {
   background-color: var(--color-background-secondary);
   width: 100%;
   flex-grow: 1;
-  /* min-height: 90vh; */
-  /* height: 100%; */
 
   display: flex;
 }
@@ -128,6 +126,10 @@ main {
   min-width: 25px;
   max-width: 40px;
   border-radius: var(--radius-2xl);
+}
+
+.song-addPlaylist:hover {
+  background-color: var(--color-button-hover);
 }
 
 /* ------------------------------------------------------ Media Queries */

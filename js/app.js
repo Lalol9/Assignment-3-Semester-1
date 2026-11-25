@@ -1,4 +1,4 @@
-//Variables for logic
+//Variables for playback button logic
 let currentSong = 0;
 let playingOrPaused = 0;
 let shuffleOn = 0;
@@ -42,7 +42,6 @@ arrowLeft.addEventListener("click", () => {
     currentSong = 10;
   }
   imageCounter.textContent = `${currentSong}/10`;
-  //   console.log(currentSong);
 });
 
 arrowRight.addEventListener("click", () => {
@@ -51,7 +50,6 @@ arrowRight.addEventListener("click", () => {
     currentSong = 1;
   }
   imageCounter.textContent = `${currentSong}/10`;
-  //   console.log(currentSong);
 });
 
 // ---------------------------------------------- logic for play/pause, repeat, and shuffle buttons
@@ -67,8 +65,6 @@ shuffle.addEventListener("click", () => {
     shuffle.classList.remove("playback-button-active");
   }
 });
-
-// Dont do styling outside of css!!!! Dummy! ;P
 
 // Logic for repeat button
 
@@ -115,12 +111,7 @@ const genreFilter = document.querySelector(".genre-filter");
 const searchInput = document.querySelector(".search__input");
 const searchButton = document.querySelector(".search__button");
 
-// Formating searchInput
-// let searchTerm = searchInput.value.trim();
-// searchTerm = searchTerm.toLowerCase();
-
-// Registering click
-
+// Registering category button click
 let selectedCategory = 0;
 
 titleButton.addEventListener("click", () => {
@@ -231,7 +222,7 @@ const renderMessagebox = (text) => {
     messagebox.classList.add("messagebox-inactive");
   };
   let timeout = setTimeout(hideMessageBox, 3000);
-  // set current timeout id as the last timeout
+  // save current timeout id in the "lastTimeoutID" variable
   lastTimeoutID = timeout;
 };
 
@@ -287,7 +278,7 @@ if (songs) {
           currentSongArtist.textContent = song.artist;
         });
         //Adding and removing songs from "my playlist"
-        // Are we currently displaying "my playlist"?
+        // Are we currently rendering "my playlist"?
         if (renderMyPlaylist == true) {
           addToMyPlaylist.addEventListener("click", () => {
             //Display confirmation message
@@ -299,7 +290,7 @@ if (songs) {
               "myPlaylistContent",
               JSON.stringify(myPlaylistContent),
             );
-            // Re-Rendering the song list to display "my playlist" without the song.
+            // Re-Rendering the song list to display "my playlist" without the removed song.
             renderSongList(myPlaylistContent);
             // Re-Rendering playlist stats
             renderPlaylistStats();
@@ -316,7 +307,7 @@ if (songs) {
               },
             );
             if (isInPlaylist) {
-              //display error message in terminal if the song exists.
+              //display error message if the song exists.
               renderMessagebox("Song already in playlist!");
             } else {
               // Add song to the myPlaylistContent array
@@ -349,7 +340,7 @@ if (songs) {
     }
   };
 
-  // ---------------------------------------- Sorting the songs
+  // ---------------------------------------- Sorting and filtering the songs
 
   const applyFilterAndSorting = () => {
     // creating a copy of the songs array
