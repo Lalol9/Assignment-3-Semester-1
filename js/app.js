@@ -196,7 +196,7 @@ const refreshCategory = () => {
 // variable containing the songs to "My playlist"
 let myPlaylistContent = [];
 
-if (JSON.parse(localStorage.getItem("myPlaylistContent")).length !== 0) {
+if (JSON.parse(localStorage.getItem("myPlaylistContent")) !== null) {
   myPlaylistContent = JSON.parse(localStorage.getItem("myPlaylistContent"));
 }
 
