@@ -326,9 +326,10 @@ if (songs) {
         }
       });
     } else if (renderMyPlaylist == true) {
-      //Display message if the playlist is empty
+      //Display message if the playlist is empty or no songs match search/filter
       const playlistEmpty = document.createElement("p");
-      playlistEmpty.textContent = "The playlist is empty!";
+      playlistEmpty.textContent =
+        "The playlist is empty or has no songs that match the search/filter!";
       playlistEmpty.classList.add("song");
       songList.append(playlistEmpty);
     } else {
