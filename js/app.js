@@ -32,7 +32,7 @@ const myPlaylistLength = document.querySelector(
   ".sidebar__my-playlist__length",
 );
 const myPlaylistDuration = document.querySelector(
-  ".sidebar__my-playlist__duration",
+  ".sidebar__my-playlist__duration-time",
 );
 
 // ------------------------------------------------- Logic for previous and next buttons
@@ -205,14 +205,15 @@ const renderPlaylistStats = () => {
   // Display length
   myPlaylistLength.textContent = `Songs: ${myPlaylistContent.length}`;
   // Calculate duration
-  var myPlaylistContentDuration = 0;
+  let myPlaylistDurationMinutes = 0;
+  let myPlaylistDurationSeconds = 0;
   myPlaylistContent.forEach((song) => {
-    myPlaylistContentDuration = myPlaylistContentDuration + song.duration;
+    myPlaylistDurationMinutes = myPlaylistDurationMinutes + song.duration;
   });
-  myPlaylistContentDuration = Math.trunc(myPlaylistContentDuration / 60);
-
+  myPlaylistDurationSeconds = myPlaylistDurationMinutes % 60;
+  myPlaylistDurationMinutes = Math.trunc(myPlaylistDurationMinutes / 60);
   // Display duration
-  myPlaylistDuration.textContent = `Duration: ${myPlaylistContentDuration}min`;
+  myPlaylistDuration.textContent = `${myPlaylistDurationMinutes}min ${myPlaylistDurationSeconds}sec `;
 };
 renderPlaylistStats();
 
@@ -256,7 +257,7 @@ if (songs) {
         songTitle.textContent = song.title;
         songArtist.textContent = song.artist;
         songGenre.textContent = song.genre;
-        songDuration.textContent = `${song.duration} sec`;
+        songDuration.textContent = `${Math.trunc(song.duration / 60)}:${song.duration % 60}`;
         // Changing the icon for adding or removing songs
         if (renderMyPlaylist == true) {
           addToMyPlaylist.setAttribute("src", "./assets/icons/remove.svg");
@@ -291,7 +292,6 @@ if (songs) {
           addToMyPlaylist.addEventListener("click", () => {
             //Display confirmation message
             renderMessagebox(`Removed ${song.title} from playlist`);
-            console.log(song.title, "at index nr ", index);
             // Removing the song from the myPlaylistContent array
             myPlaylistContent.splice(index, 1);
             // Saving the myPlaylistContent array locally
@@ -299,7 +299,6 @@ if (songs) {
               "myPlaylistContent",
               JSON.stringify(myPlaylistContent),
             );
-            console.log(myPlaylistContent);
             // Re-Rendering the song list to display "my playlist" without the song.
             renderSongList(myPlaylistContent);
             // Re-Rendering playlist stats
@@ -422,13 +421,11 @@ if (songs) {
 
   // Rendering "my Playlist"
   myPlaylist.addEventListener("click", () => {
-    console.log("attempthing to load my playlist");
     renderMyPlaylist = true;
     renderSongList(myPlaylistContent);
   });
   // Rendering all the song from the songs array.
   renderAllSongs.addEventListener("click", () => {
-    console.log("Displaying all songs");
     renderMyPlaylist = false;
     updateList();
   });
