@@ -340,7 +340,7 @@ if (songs) {
     }
   };
 
-  // ---------------------------------------- Sorting and filtering the songs
+  // ---------------------------------------- Sorting, searching and filtering the songs
 
   const applyFilterAndSorting = () => {
     // creating a copy of the songs array
